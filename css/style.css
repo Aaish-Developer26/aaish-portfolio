@@ -316,6 +316,44 @@ code, pre {
   margin-top: 1rem;
 }
 
+/* === CHANGE 1: AVAILABILITY BADGE === */
+
+.availability-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  margin-bottom: 20px;
+  padding: 6px 14px;
+  background-color: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: #10B981;
+}
+
+.avail-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background-color: #10B981;
+  border-radius: 50%;
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+  }
+}
+
+/* === CHANGE 1: END === */
+
 .btn {
   display: inline-flex;
   align-items: center;
@@ -652,6 +690,104 @@ code, pre {
 }
 
 /* === TERMINAL WIDGET END === */
+
+/* === CHANGE 4: IMPACT NUMBERS STATS BAR === */
+
+.impact-section {
+  background-color: #080C14;
+  padding: 60px 0;
+  border-top: 1px solid #1E2D45;
+  border-bottom: 1px solid #1E2D45;
+}
+
+.impact-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.impact-tile {
+  position: relative;
+  padding: 40px 32px;
+  text-align: center;
+  border-right: 1px solid #1E2D45;
+}
+
+.impact-tile:last-child {
+  border-right: none;
+}
+
+.impact-value {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.impact-number {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: clamp(42px, 5vw, 64px);
+  font-weight: 700;
+  line-height: 1;
+  color: #00A8FF;
+}
+
+.impact-symbol {
+  display: inline-block;
+  margin-top: 8px;
+  font-family: var(--font-mono);
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: 700;
+  vertical-align: top;
+  color: #00A8FF;
+}
+
+.impact-label {
+  margin-top: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: #E2E8F0;
+}
+
+.impact-sub {
+  margin-top: 6px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #64748B;
+}
+
+@media (max-width: 768px) {
+  .impact-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .impact-tile {
+    border-right: none;
+  }
+
+  .impact-tile:nth-child(1),
+  .impact-tile:nth-child(3) {
+    border-right: 1px solid #1E2D45;
+  }
+
+  .impact-tile:nth-child(1),
+  .impact-tile:nth-child(2) {
+    border-bottom: 1px solid #1E2D45;
+  }
+}
+
+@media (max-width: 480px) {
+  .impact-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* === CHANGE 4: END === */
 
 /* ==========================================================================
    About Section
@@ -1259,6 +1395,20 @@ code, pre {
   font-size: 0.9rem;
   word-break: break-word;
 }
+
+/* === CHANGE 2: WHATSAPP CONTACT ITEM === */
+
+.contact-link-whatsapp .contact-icon {
+  color: #25D366;
+}
+
+.contact-link-whatsapp:hover {
+  background-color: rgba(37, 211, 102, 0.08);
+  border-color: #25D366;
+  color: #25D366;
+}
+
+/* === CHANGE 2: END === */
 
 /* ==========================================================================
    Footer

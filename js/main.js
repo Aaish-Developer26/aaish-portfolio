@@ -88,6 +88,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- Code terminal widget ---
   runTerminal();
 
+  // --- Impact numbers counter ---
+  animateImpactCounters();
+
 });
 
 /* === TERMINAL WIDGET START === */
@@ -234,3 +237,55 @@ function runTerminal() {
 }
 
 /* === TERMINAL WIDGET END === */
+
+/* === CHANGE 4: IMPACT COUNTER ANIMATION === */
+
+function animateImpactCounters() {
+  const impactSection = document.getElementById('impact');
+  if (!impactSection) return;
+
+  const numbers = impactSection.querySelectorAll('.impact-number');
+  const DURATION = 1800;
+  let counted = false;
+
+  const easeOut = (t) => 1 - Math.pow(1 - t, 3);
+
+  const runCounters = () => {
+    if (counted) return;
+    counted = true;
+
+    numbers.forEach((el) => {
+      const target = parseInt(el.getAttribute('data-target'), 10) || 0;
+      const startTime = performance.now();
+
+      const step = (now) => {
+        const progress = Math.min((now - startTime) / DURATION, 1);
+        const value = Math.round(target * easeOut(progress));
+        el.textContent = String(value);
+
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        } else {
+          el.textContent = String(target);
+        }
+      };
+
+      requestAnimationFrame(step);
+    });
+  };
+
+  const impactObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        runCounters();
+        impactObserver.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.3,
+  });
+
+  impactObserver.observe(impactSection);
+}
+
+/* === CHANGE 4: END === */

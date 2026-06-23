@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <rect width="200" height="200" rx="32" fill="#0A0F1C"/>
+  <rect width="200" height="200" rx="32" fill="none"
+        stroke="#00A8FF" stroke-width="3" opacity="0.6"/>
+  <text x="36" y="118"
+        font-family="Arial, sans-serif"
+        font-size="82" font-weight="700"
+        fill="#E2E8F0">A</text>
+  <text x="82" y="118"
+        font-family="Arial, sans-serif"
+        font-size="82" font-weight="700"
+        fill="#00A8FF">F</text>
+  <text x="130" y="118"
+        font-family="Arial, sans-serif"
+        font-size="82" font-weight="700"
+        fill="#E2E8F0">H</text>
+  <rect x="36" y="132" width="128" height="3"
+        rx="2" fill="#00A8FF" opacity="0.5"/>
+</svg>
