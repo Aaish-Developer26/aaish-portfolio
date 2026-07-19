@@ -864,6 +864,42 @@ code, pre {
    Skills Section
    ========================================================================== */
 
+.skills-legend {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 32px;
+  font-size: 12px;
+  color: #64748B;
+  font-family: var(--font-mono);
+  letter-spacing: 0.06em;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.legend-dot--filled {
+  background: #00A8FF;
+}
+
+.legend-dot--outlined {
+  background: transparent;
+  border: 1.5px solid #F5A623;
+}
+
+.legend-divider {
+  color: #1E2D45;
+}
+
 .skills-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -916,6 +952,25 @@ code, pre {
   font-family: var(--font-mono);
   font-size: 0.8rem;
   color: var(--color-accent);
+}
+
+.skill-tag.working {
+  background: transparent;
+  border: 1px solid rgba(245, 166, 35, 0.4);
+  color: #F5A623;
+  font-weight: 400;
+}
+
+.skill-tag.working:hover {
+  border-color: #F5A623;
+  color: #FFC15E;
+}
+
+.tier-divider {
+  height: 1px;
+  background: #1A2438;
+  margin: 10px 0;
+  width: 100%;
 }
 
 @media (max-width: 1024px) {
@@ -1443,11 +1498,34 @@ code, pre {
   color: var(--color-accent);
 }
 
+.edu-logo-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  background: #FFFFFF;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 6px;
+  overflow: hidden;
+}
+
+.edu-logo-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+}
+
 .education-content {
   display: flex;
   flex: 1;
   flex-direction: column;
   gap: 0.25rem;
+  min-width: 0;
 }
 
 .education-header {
@@ -1550,8 +1628,25 @@ code, pre {
 
 @media (max-width: 768px) {
   .education-item {
-    flex-direction: column;
-    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .edu-logo-wrap {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+@media (max-width: 480px) {
+  .education-item {
+    gap: 10px;
+  }
+
+  .edu-logo-wrap {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    padding: 4px;
   }
 }
 
