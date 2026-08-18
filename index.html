@@ -69,6 +69,7 @@
     <!-- Hero Section -->
     <!-- ============================== -->
     <section id="hero" class="hero fade-in-hidden">
+      <canvas id="neural-canvas" aria-hidden="true"></canvas>
       <div class="hero-bg" aria-hidden="true">
         <span class="hero-glow hero-glow-1"></span>
         <span class="hero-glow hero-glow-2"></span>
@@ -845,35 +846,173 @@
     <!-- ============================== -->
     <section id="contact" class="section contact fade-in-hidden">
       <div class="container">
-        <div class="contact-content">
-          <h2 class="section-title">Contact</h2>
+
+        <div class="contact-header">
+          <h2 class="section-title">Get In Touch</h2>
           <p class="contact-subtext">
-            Open to AI Engineering roles across UAE, KSA, Qatar, Kuwait,
-            and Pakistan. Reach out through any channel below —
-            WhatsApp preferred for fastest response.
+            Open to AI Engineering roles across UAE, KSA, Qatar,
+            Kuwait, and Pakistan. Reach out through any channel
+            or drop a message below — I respond within 24 hours.
           </p>
-          <div class="contact-links">
-            <a href="https://wa.me/923330378408" class="contact-link contact-link-whatsapp" target="_blank" rel="noopener noreferrer">
-              <span class="contact-icon"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></span>
-              <span class="contact-label">WhatsApp Me</span>
-            </a>
-            <a href="tel:+923330378408" class="contact-link">
-              <span class="contact-icon"><i class="fa-solid fa-phone" aria-hidden="true"></i></span>
-              <span class="contact-label">+92 333 0378408</span>
-            </a>
-            <a href="mailto:hameediaaish@gmail.com" class="contact-link">
-              <span class="contact-icon"><i class="fa-solid fa-envelope" aria-hidden="true"></i></span>
-              <span class="contact-label">hameediaaish@gmail.com</span>
-            </a>
-            <a href="https://www.linkedin.com/in/aaishhameedi" class="contact-link" target="_blank" rel="noopener noreferrer">
-              <span class="contact-icon"><i class="fa-brands fa-linkedin-in" aria-hidden="true"></i></span>
-              <span class="contact-label">LinkedIn</span>
-            </a>
-            <a href="https://github.com/Aaish-Developer26" class="contact-link" target="_blank" rel="noopener noreferrer">
-              <span class="contact-icon"><i class="fa-brands fa-github" aria-hidden="true"></i></span>
-              <span class="contact-label">GitHub</span>
-            </a>
+        </div>
+
+        <div class="contact-grid">
+
+          <!-- LEFT: Contact channels -->
+          <div class="contact-channels">
+            <h3 class="contact-channels-heading">Direct Channels</h3>
+            <p class="contact-channels-sub">
+              WhatsApp preferred for fastest response.
+            </p>
+
+            <div class="contact-links">
+              <a href="https://wa.me/923330378408" class="contact-link contact-link-whatsapp" target="_blank" rel="noopener noreferrer">
+                <span class="contact-icon"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></span>
+                <span class="contact-label">WhatsApp Me</span>
+              </a>
+              <a href="tel:+923330378408" class="contact-link">
+                <span class="contact-icon"><i class="fa-solid fa-phone" aria-hidden="true"></i></span>
+                <span class="contact-label">+92 333 0378408</span>
+              </a>
+              <a href="mailto:hameediaaish@gmail.com" class="contact-link">
+                <span class="contact-icon"><i class="fa-solid fa-envelope" aria-hidden="true"></i></span>
+                <span class="contact-label">hameediaaish@gmail.com</span>
+              </a>
+              <a href="https://www.linkedin.com/in/aaishhameedi" class="contact-link" target="_blank" rel="noopener noreferrer">
+                <span class="contact-icon"><i class="fa-brands fa-linkedin-in" aria-hidden="true"></i></span>
+                <span class="contact-label">LinkedIn</span>
+              </a>
+              <a href="https://github.com/Aaish-Developer26" class="contact-link" target="_blank" rel="noopener noreferrer">
+                <span class="contact-icon"><i class="fa-brands fa-github" aria-hidden="true"></i></span>
+                <span class="contact-label">GitHub</span>
+              </a>
+            </div>
           </div>
+
+          <!-- RIGHT: Contact form -->
+          <div class="contact-form-wrap">
+            <h3 class="contact-form-heading">Send a Message</h3>
+            <p class="contact-form-sub">
+              Have a role, project, or idea to discuss?
+              I'd love to hear from you.
+            </p>
+
+            <form
+              id="contact-form"
+              action="https://api.web3forms.com/submit"
+              method="POST"
+              class="contact-form"
+              novalidate
+            >
+              <!-- Web3Forms access key -->
+              <input type="hidden"
+                     name="access_key"
+                     value="ca9dd36b-65a8-42ce-b42c-6a803ae7b145">
+
+              <!-- Honeypot spam prevention -->
+              <input type="checkbox"
+                     name="botcheck"
+                     style="display:none">
+
+              <!-- Redirect after submission -->
+              <input type="hidden"
+                     name="redirect"
+                     value="false">
+
+              <!-- Form subject in inbox -->
+              <input type="hidden"
+                     name="subject"
+                     value="New message from portfolio — Aaish AFH">
+
+              <!-- Full Name field -->
+              <div class="form-group">
+                <label for="contact-name" class="form-label">
+                  Full Name
+                </label>
+                <input
+                  type="text"
+                  id="contact-name"
+                  name="name"
+                  class="form-input"
+                  placeholder="Your full name"
+                  required
+                  autocomplete="name"
+                >
+                <span class="form-error" id="error-name"></span>
+              </div>
+
+              <!-- Email field -->
+              <div class="form-group">
+                <label for="contact-email" class="form-label">
+                  Email Address
+                </label>
+                <input
+                  type="email"
+                  id="contact-email"
+                  name="email"
+                  class="form-input"
+                  placeholder="your@email.com"
+                  required
+                  autocomplete="email"
+                >
+                <span class="form-error" id="error-email"></span>
+              </div>
+
+              <!-- Message field -->
+              <div class="form-group">
+                <label for="contact-message" class="form-label">
+                  Message
+                </label>
+                <textarea
+                  id="contact-message"
+                  name="message"
+                  class="form-input form-textarea"
+                  placeholder="Tell me about the role, project, or opportunity..."
+                  rows="5"
+                  required
+                ></textarea>
+                <span class="form-error" id="error-message"></span>
+              </div>
+
+              <!-- Submit button -->
+              <button
+                type="submit"
+                id="form-submit-btn"
+                class="form-submit-btn"
+              >
+                <span class="btn-text">Send Message</span>
+                <span class="btn-icon">
+                  <svg viewBox="0 0 24 24" fill="none"
+                       stroke="currentColor" stroke-width="2"
+                       stroke-linecap="round"
+                       stroke-linejoin="round">
+                    <line x1="22" y1="2" x2="11" y2="13"/>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                  </svg>
+                </span>
+              </button>
+
+              <!-- Success / Error messages -->
+              <div id="form-success" class="form-success-msg"
+                   style="display:none">
+                <svg viewBox="0 0 24 24" fill="none"
+                     stroke="currentColor" stroke-width="2.5"
+                     stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+                Message sent! I'll get back to you within 24 hours.
+              </div>
+
+              <div id="form-error-msg" class="form-error-banner"
+                   style="display:none">
+                Something went wrong. Please try WhatsApp instead:
+                <a href="https://wa.me/923330378408"
+                   target="_blank">+92 333 0378408</a>
+              </div>
+
+            </form>
+          </div>
+
         </div>
       </div>
     </section>
@@ -903,5 +1042,108 @@
 
   <script src="js/main.js"></script>
   <script src="js/chatbot.js"></script>
+  <script>
+  (function() {
+    const form    = document.getElementById('contact-form');
+    const btn     = document.getElementById('form-submit-btn');
+    const success = document.getElementById('form-success');
+    const errMsg  = document.getElementById('form-error-msg');
+
+    if (!form) return;
+
+    function setLoading(loading) {
+      const text = btn.querySelector('.btn-text');
+      btn.disabled = loading;
+      if (loading) {
+        text.textContent = 'Sending...';
+        btn.style.opacity = '0.75';
+        btn.style.cursor  = 'not-allowed';
+      } else {
+        text.textContent = 'Send Message';
+        btn.style.opacity = '';
+        btn.style.cursor  = '';
+      }
+    }
+
+    function clearErrors() {
+      ['name','email','message'].forEach(id => {
+        const el = document.getElementById('error-' + id);
+        if (el) el.textContent = '';
+      });
+      const inputs = form.querySelectorAll('.form-input');
+      inputs.forEach(i => i.classList.remove('form-input--error'));
+    }
+
+    function validateForm() {
+      let valid = true;
+      const name  = document.getElementById('contact-name');
+      const email = document.getElementById('contact-email');
+      const msg   = document.getElementById('contact-message');
+
+      if (!name.value.trim()) {
+        document.getElementById('error-name').textContent =
+          'Please enter your name.';
+        name.classList.add('form-input--error');
+        valid = false;
+      }
+      if (!email.value.trim() ||
+          !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+        document.getElementById('error-email').textContent =
+          'Please enter a valid email address.';
+        email.classList.add('form-input--error');
+        valid = false;
+      }
+      if (!msg.value.trim() || msg.value.trim().length < 10) {
+        document.getElementById('error-message').textContent =
+          'Please enter a message (at least 10 characters).';
+        msg.classList.add('form-input--error');
+        valid = false;
+      }
+      return valid;
+    }
+
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      clearErrors();
+      success.style.display = 'none';
+      errMsg.style.display  = 'none';
+
+      if (!validateForm()) return;
+
+      setLoading(true);
+
+      try {
+        const data = new FormData(form);
+        const resp = await fetch('https://api.web3forms.com/submit',
+          { method: 'POST', body: data }
+        );
+        const result = await resp.json();
+
+        if (result.success) {
+          success.style.display = 'flex';
+          form.reset();
+          success.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        } else {
+          errMsg.style.display = 'flex';
+        }
+      } catch (_) {
+        errMsg.style.display = 'flex';
+      } finally {
+        setLoading(false);
+      }
+    });
+
+    // Clear error state on input
+    form.querySelectorAll('.form-input').forEach(input => {
+      input.addEventListener('input', function() {
+        this.classList.remove('form-input--error');
+        const errEl = document.getElementById(
+          'error-' + this.id.replace('contact-', '')
+        );
+        if (errEl) errEl.textContent = '';
+      });
+    });
+  })();
+  </script>
 </body>
 </html>

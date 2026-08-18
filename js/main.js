@@ -91,6 +91,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- Impact numbers counter ---
   animateImpactCounters();
 
+  // --- Neural network canvas + 3D card tilt ---
+  initNeuralNetwork();
+  initCardTilt();
+
 });
 
 /* === TERMINAL WIDGET START === */
@@ -289,3 +293,224 @@ function animateImpactCounters() {
 }
 
 /* === CHANGE 4: END === */
+
+/* === SESSION B: NEURAL NETWORK CANVAS === */
+
+function initNeuralNetwork() {
+  const canvas = document.getElementById('neural-canvas');
+  if (!canvas) return;
+
+  // Disable on mobile/touch for performance
+  if (window.innerWidth < 768) return;
+
+  const ctx = canvas.getContext('2d');
+  let nodes = [];
+  let animationId = null;
+  let isVisible = true;
+
+  const CONFIG = {
+    nodeCount: 55,
+    maxDistance: 148,
+    nodeRadius: 2.2,
+    nodeSpeed: 0.38,
+    nodeColor: '0, 168, 255',
+    lineColor: '0, 168, 255',
+    nodeOpacityMin: 0.35,
+    nodeOpacityMax: 0.85,
+    pulseSpeed: 0.008,
+  };
+
+  function resizeCanvas() {
+    const hero = canvas.parentElement;
+    canvas.width = hero.offsetWidth;
+    canvas.height = hero.offsetHeight;
+  }
+
+  function createNode() {
+    return {
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      vx: (Math.random() - 0.5) * CONFIG.nodeSpeed,
+      vy: (Math.random() - 0.5) * CONFIG.nodeSpeed,
+      radius: CONFIG.nodeRadius + Math.random() * 1.2,
+      opacity: CONFIG.nodeOpacityMin +
+               Math.random() * (CONFIG.nodeOpacityMax - CONFIG.nodeOpacityMin),
+      pulseOffset: Math.random() * Math.PI * 2,
+    };
+  }
+
+  function initNodes() {
+    nodes = [];
+    for (let i = 0; i < CONFIG.nodeCount; i++) {
+      nodes.push(createNode());
+    }
+  }
+
+  function updateNodes() {
+    nodes.forEach(node => {
+      node.x += node.vx;
+      node.y += node.vy;
+      node.pulseOffset += CONFIG.pulseSpeed;
+
+      // Bounce off edges with padding
+      const pad = 20;
+      if (node.x < pad || node.x > canvas.width - pad) {
+        node.vx *= -1;
+        node.x = Math.max(pad, Math.min(canvas.width - pad, node.x));
+      }
+      if (node.y < pad || node.y > canvas.height - pad) {
+        node.vy *= -1;
+        node.y = Math.max(pad, Math.min(canvas.height - pad, node.y));
+      }
+    });
+  }
+
+  function drawFrame() {
+    if (!isVisible) {
+      animationId = requestAnimationFrame(drawFrame);
+      return;
+    }
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Draw connecting lines first (below nodes)
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const dx = nodes[i].x - nodes[j].x;
+        const dy = nodes[i].y - nodes[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < CONFIG.maxDistance) {
+          const lineOpacity = (1 - dist / CONFIG.maxDistance) * 0.35;
+          ctx.beginPath();
+          ctx.moveTo(nodes[i].x, nodes[i].y);
+          ctx.lineTo(nodes[j].x, nodes[j].y);
+          ctx.strokeStyle = `rgba(${CONFIG.lineColor}, ${lineOpacity})`;
+          ctx.lineWidth = 0.8;
+          ctx.stroke();
+        }
+      }
+    }
+
+    // Draw nodes
+    nodes.forEach(node => {
+      const pulse = Math.sin(node.pulseOffset) * 0.2;
+      const currentOpacity = Math.min(
+        CONFIG.nodeOpacityMax,
+        node.opacity + pulse
+      );
+
+      // Outer glow
+      const gradient = ctx.createRadialGradient(
+        node.x, node.y, 0,
+        node.x, node.y, node.radius * 3.5
+      );
+      gradient.addColorStop(0, `rgba(${CONFIG.nodeColor}, ${currentOpacity})`);
+      gradient.addColorStop(1, `rgba(${CONFIG.nodeColor}, 0)`);
+
+      ctx.beginPath();
+      ctx.arc(node.x, node.y, node.radius * 3.5, 0, Math.PI * 2);
+      ctx.fillStyle = gradient;
+      ctx.fill();
+
+      // Core dot
+      ctx.beginPath();
+      ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${CONFIG.nodeColor}, ${currentOpacity})`;
+      ctx.fill();
+    });
+
+    updateNodes();
+    animationId = requestAnimationFrame(drawFrame);
+  }
+
+  // Pause when tab not visible (battery/performance)
+  document.addEventListener('visibilitychange', () => {
+    isVisible = !document.hidden;
+  });
+
+  // Resize handler with debounce
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      if (window.innerWidth < 768) {
+        canvas.style.display = 'none';
+        if (animationId) cancelAnimationFrame(animationId);
+        return;
+      }
+      canvas.style.display = '';
+      resizeCanvas();
+      initNodes();
+    }, 200);
+  });
+
+  // Start
+  resizeCanvas();
+  initNodes();
+  animationId = requestAnimationFrame(drawFrame);
+}
+
+/* === SESSION B: NEURAL NETWORK CANVAS END === */
+
+/* === SESSION B: 3D CARD TILT === */
+
+function initCardTilt() {
+  // Only run on devices with a real hover/mouse
+  if (window.matchMedia('(hover: none)').matches) return;
+
+  // Real tiltable card classes found in index.html:
+  // project cards (.project-card) and skill cards (.skill-card)
+  const TILT_SELECTORS = ['.project-card', '.skill-card'];
+
+  const MAX_TILT = 7;      // degrees max rotation
+  const SCALE_HOVER = 1.015; // very subtle lift
+
+  function applyTilt(card, e) {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    const rotX = ((y - centerY) / centerY) * -MAX_TILT;
+    const rotY = ((x - centerX) / centerX) * MAX_TILT;
+
+    card.style.transform =
+      `perspective(900px) rotateX(${rotX}deg) ` +
+      `rotateY(${rotY}deg) scale(${SCALE_HOVER})`;
+
+    // Update sheen position via CSS custom properties
+    card.style.setProperty('--sheen-x', `${x}px`);
+    card.style.setProperty('--sheen-y', `${y}px`);
+
+    card.classList.add('tilt-active');
+    card.classList.remove('tilt-reset');
+  }
+
+  function resetTilt(card) {
+    card.classList.add('tilt-reset');
+    card.classList.remove('tilt-active');
+    card.style.transform = '';
+    // Clean up transition-reset class after it finishes
+    setTimeout(() => {
+      card.classList.remove('tilt-reset');
+    }, 500);
+  }
+
+  // Find all matching cards
+  const allCards = [];
+  TILT_SELECTORS.forEach(selector => {
+    document.querySelectorAll(selector).forEach(el => {
+      if (!allCards.includes(el)) allCards.push(el);
+    });
+  });
+
+  allCards.forEach(card => {
+    card.addEventListener('mousemove', (e) => applyTilt(card, e));
+    card.addEventListener('mouseleave', () => resetTilt(card));
+    card.addEventListener('mouseenter', (e) => applyTilt(card, e));
+  });
+}
+
+/* === SESSION B: 3D CARD TILT END === */
