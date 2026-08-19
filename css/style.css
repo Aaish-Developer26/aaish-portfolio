@@ -1879,6 +1879,22 @@ code, pre {
 
 /* === CHANGE 2: END === */
 
+/* === UPWORK CONTACT ITEM === */
+
+.contact-link-upwork .contact-icon {
+  background-color: #000000;
+  border-color: #000000;
+  color: #FFFFFF;
+}
+
+.contact-link-upwork:hover {
+  background-color: rgba(0, 0, 0, 0.15);
+  border-color: #000000;
+  color: #E2E8F0;
+}
+
+/* === UPWORK CONTACT ITEM END === */
+
 /* ==========================================================================
    Footer
    ========================================================================== */
