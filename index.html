@@ -160,7 +160,7 @@
 
         <div class="impact-tile">
           <div class="impact-value">
-            <div class="impact-number" data-target="3">0</div>
+            <div class="impact-number" data-target="4">0</div>
             <div class="impact-symbol">+</div>
           </div>
           <div class="impact-label">Production AI Systems</div>
@@ -234,7 +234,7 @@
                 <span class="stat-label">Years Experience</span>
               </div>
               <div class="stat-box">
-                <span class="stat-value">3</span>
+                <span class="stat-value">4</span>
                 <span class="stat-label">Production AI Systems</span>
               </div>
               <div class="stat-box">
@@ -564,6 +564,116 @@
                       src="assets/projects/genicoder-dashboard.png"
                       alt="AI Medical Coder &mdash; Genicoder Web App dashboard"
                       class="browser-screenshot"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card project-card-featured">
+            <div class="project-card-two-col">
+              <div class="project-card-main">
+                <div class="project-badges-row">
+                  <span class="badge badge-featured">Featured Project</span>
+                  <span class="badge badge-gcc">US Market</span>
+                  <span class="badge badge-deploy">Deployed</span>
+                </div>
+                <div class="project-heading">
+                  <h3 class="project-title">AI Medical Billing Agent</h3>
+                </div>
+                <p class="project-subtitle">Multi-Agent RCM System &middot; Healthcare AI &middot; US Market</p>
+
+                <div class="project-impact-box">
+                  <i class="fa-solid fa-bolt" aria-hidden="true"></i> 70&ndash;80% coding turnaround reduction &middot; 98.5% processing success rate
+                </div>
+
+                <p class="project-description">
+                  An enterprise-grade multi-agent AI system for medical billing and
+                  revenue cycle management (RCM). A LangGraph Controller Agent
+                  coordinates 6 specialized GPT-5 sub-agents &mdash; from clinical
+                  document ingestion through ICD-10/CPT/HCPCS coding, human-in-the-loop
+                  review, and autonomous claim drafting. Coded 380 medical codes from
+                  63 clinical documents in validation, every code linked to supporting
+                  text from the original note.
+                </p>
+
+                <div class="arch-list">
+                  <div class="arch-item">
+                    <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                    LangGraph Controller + 6 GPT-5 sub-agents &middot; 7-stage human-in-the-loop review workflow
+                  </div>
+                  <div class="arch-item">
+                    <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                    4 ingestion sources (EHR APIs, FTP/FTPS, Google Drive, local) &middot; 9 exposed MCP servers
+                  </div>
+                  <div class="arch-item">
+                    <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                    Multi-tenant Django REST API &middot; JWT + 3-tier RBAC &middot; React 19 dashboard (TanStack, shadcn/ui, Zod)
+                  </div>
+                </div>
+
+                <span class="ragas-suite-label">Performance Metrics</span>
+                <div class="ragas-grid">
+                  <div class="ragas-tile">
+                    <span class="ragas-score">98.5%</span>
+                    <span class="ragas-label">Success Rate</span>
+                  </div>
+                  <div class="ragas-tile">
+                    <span class="ragas-score">~26s</span>
+                    <span class="ragas-label">Per Document</span>
+                  </div>
+                  <div class="ragas-tile">
+                    <span class="ragas-score">~7s</span>
+                    <span class="ragas-label">Cached (73% faster)</span>
+                  </div>
+                  <div class="ragas-tile">
+                    <span class="ragas-score">380</span>
+                    <span class="ragas-label">Codes (63 docs)</span>
+                  </div>
+                </div>
+
+                <div class="project-tech">
+                  <span class="tech-tag">LangGraph</span>
+                  <span class="tech-tag">GPT-5</span>
+                  <span class="tech-tag">Django REST API</span>
+                  <span class="tech-tag">React 19</span>
+                  <span class="tech-tag">FastAPI</span>
+                  <span class="tech-tag">PostgreSQL</span>
+                  <span class="tech-tag">MCP Servers</span>
+                  <span class="tech-tag">JWT + RBAC</span>
+                  <span class="tech-tag">Celery</span>
+                  <span class="tech-tag">TanStack</span>
+                  <span class="tech-tag">shadcn/ui</span>
+                  <span class="tech-tag">Python</span>
+                </div>
+
+                <div class="project-links">
+                  <a href="https://mba.appedology.pk/" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+                    <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> Live Demo
+                  </a>
+                </div>
+              </div>
+
+              <div class="project-screenshot-wrap">
+                <div class="browser-mockup">
+                  <div class="browser-bar">
+                    <div class="browser-dots">
+                      <span class="dot dot-red"></span>
+                      <span class="dot dot-yellow"></span>
+                      <span class="dot dot-green"></span>
+                    </div>
+                    <div class="browser-url">
+                      <i class="fa-solid fa-lock" style="font-size:9px; color:#3D4A5C;"></i>
+                      mba.appedology.pk &middot; Medical Billing Agent
+                    </div>
+                  </div>
+                  <div class="browser-screen">
+                    <img
+                      src="assets/projects/medical-billing-agent.png"
+                      alt="AI Medical Billing Agent &mdash; Operations Dashboard"
+                      class="browser-screenshot"
+                      loading="lazy"
                     />
                   </div>
                 </div>
